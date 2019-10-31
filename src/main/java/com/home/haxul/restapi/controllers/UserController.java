@@ -1,6 +1,8 @@
 package com.home.haxul.restapi.controllers;
 
 import com.home.haxul.restapi.dto.User;
+import com.home.haxul.restapi.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("users")
 public class UserController {
-
     private HashMap<String, User> store = new HashMap<>();
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(path = "/{userId}")
     public ResponseEntity<User> getPage(@PathVariable String userId) {
@@ -41,14 +45,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> getUser(@Valid @RequestBody User user) {
-        User account = new User();
-        account.setName(user.getName());
-        account.setLastname(user.getLastname());
-        account.setPassword(user.getPassword());
-        account.setEmail(user.getEmail());
-        String uid = UUID.randomUUID().toString();
-        account.setId(uid);
-        store.put(uid, account);
+        User account = userService.createUser(user);
         return new ResponseEntity<User>(account, HttpStatus.OK);
     }
 
