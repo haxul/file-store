@@ -1,10 +1,10 @@
-package com.home.haxul.restapi;
+package com.home.eurekaservice.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestApiApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {

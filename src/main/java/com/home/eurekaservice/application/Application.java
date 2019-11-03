@@ -1,13 +1,13 @@
-package com.home.haxul.restapi;
+package com.home.eurekaservice.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RestApiApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(RestApiApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
