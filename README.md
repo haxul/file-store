@@ -2,7 +2,7 @@
 
 #### cloud service to store your files
 
-## Backend:
+### Backend:
 
 - Spring boot
 - Spring MVC
@@ -10,7 +10,7 @@
 - Hibernate
 - MySql
 
-##Frontend:
+### Frontend:
 
 - React.js
 - Redux
