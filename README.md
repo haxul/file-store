@@ -1,8 +1,8 @@
 # File-store
 
-####cloud service to store your files
+#### cloud service to store your files
 
-##Backend:
+## Backend:
 
 - Spring boot
 - Spring MVC
