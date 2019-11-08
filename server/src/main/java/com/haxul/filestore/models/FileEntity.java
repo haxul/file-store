@@ -3,19 +3,23 @@ package com.haxul.filestore.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class File {
+@Table(name = "files", uniqueConstraints = {@UniqueConstraint(columnNames = {"path"})})
+public class FileEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
+    @NotNull
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @NotNull
     private String path;
 
     @Column
@@ -28,15 +32,15 @@ public class File {
     private boolean isFavorites;
 
     @ManyToOne
-    private User user;
+    private UserEntity userEntity;
 
-    public  File() {}
+    public FileEntity() {}
 
-    public File(String title, String path, boolean isFavorites, User user) {
+    public FileEntity(String title, String path, boolean isFavorites, UserEntity userEntity) {
         this.title = title;
         this.path = path;
         this.isFavorites = isFavorites;
-        this.user = user;
+        this.userEntity = userEntity;
     }
 
     public int getId() {
@@ -79,11 +83,11 @@ public class File {
         isFavorites = favorites;
     }
 
-    public User getUser() {
-        return user;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }
