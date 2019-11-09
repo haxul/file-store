@@ -7,6 +7,7 @@
 - Spring boot
 - Spring MVC
 - Spring Security
+- Spring Data
 - Hibernate
 - MySql
 
@@ -14,3 +15,5 @@
 
 - React.js
 - Redux
+- Bootstrap
+- SCSS
