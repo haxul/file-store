@@ -1,7 +1,10 @@
 package com.haxul.filestore.security;
 
+import com.haxul.filestore.dao.UserDao;
 import com.haxul.filestore.dto.UserDto;
+import com.haxul.filestore.models.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,16 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -45,8 +55,10 @@ public class JwtAuthenticationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(user));
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UserDto userDto) throws Exception {
+        UserEntity user = userDao.findUserEntityByUsername(userDto.getUsername());
+        if (user == null) return ResponseEntity.ok(userDetailsService.save(userDto));
+        return new ResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
 

@@ -1,19 +1,18 @@
 package com.haxul.filestore.dto;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class UserDto {
 
-    @NotNull
-    @Length(min = 3)
-    @UniqueElements
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String username;
 
-    @UniqueElements
-    @Length(min = 6)
-    @NotNull
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,100}$", flags = Pattern.Flag.UNICODE_CASE)
     private String password;
 
     public String getUsername() {
