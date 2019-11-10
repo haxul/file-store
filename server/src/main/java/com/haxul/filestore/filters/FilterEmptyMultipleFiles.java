@@ -24,7 +24,6 @@ public class FilterEmptyMultipleFiles implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         String contentTypeHeader = httpRequest.getHeader("content-type");
-        System.out.println(contentTypeHeader);
         Pattern formPattern = Pattern.compile("multipart/form-data");
         Matcher formMatcher = formPattern.matcher(contentTypeHeader);
         Boolean isMultipartForm = formMatcher.find();
