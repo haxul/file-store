@@ -43,6 +43,12 @@ public class FileEntity {
         this.userEntity = userEntity;
     }
 
+    public FileEntity(String title, String path, UserEntity userEntity) {
+        this.title = title;
+        this.path = path;
+        this.userEntity = userEntity;
+    }
+
     public int getId() {
         return id;
     }

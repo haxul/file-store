@@ -21,10 +21,11 @@ public class UserEntity {
     @NotNull
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<FileEntity> fileEntities;
 
     public UserEntity() {}
+
     public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;

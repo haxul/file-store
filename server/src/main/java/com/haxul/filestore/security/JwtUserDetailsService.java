@@ -26,7 +26,8 @@ public class JwtUserDetailsService implements UserDetailsService {
         UserEntity currentUser = userDao.findUserEntityByUsername(username);
         String currentUserUsername = currentUser.getUsername();
         String currentUserPassword = currentUser.getPassword();
-         if (currentUserUsername.equals(username)) {
+
+        if (currentUserUsername.equals(username)) {
             return new User(currentUserUsername, currentUserPassword,
                     new ArrayList<>());
         } else {
