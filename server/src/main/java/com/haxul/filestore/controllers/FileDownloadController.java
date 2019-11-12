@@ -38,6 +38,7 @@ public class FileDownloadController {
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
+        headers.add("filename", file.getTitle());
 
         InputStreamResource resource = new InputStreamResource(new FileInputStream(fileToDownload));
         return ResponseEntity.ok()
