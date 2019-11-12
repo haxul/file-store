@@ -27,7 +27,7 @@ public class FileUploadController {
     @Autowired
    private FileUploadService fileUploadService;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping
     public ResponseEntity<String> uploadMultipleFiles(@Valid @ModelAttribute("fileUploadDto") FileUploadDto inputFiles, Authentication authentication) throws IOException {
         String username = authentication.getName();
         fileUploadService.uploadFile(inputFiles, username);

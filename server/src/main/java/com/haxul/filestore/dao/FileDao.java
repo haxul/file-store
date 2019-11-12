@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FileDao extends CrudRepository<FileEntity, Integer> {
-
+    FileEntity findFileEntityById(int id);
 }
