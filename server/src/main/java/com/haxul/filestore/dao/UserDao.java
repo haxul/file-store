@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UserDao extends CrudRepository<UserEntity, Integer> {
 
-    public UserEntity findUserEntityByUsername(String username);
+    UserEntity findUserEntityByUsername(String username);
 
     @Modifying
     @Query("update UserEntity u set u.fileEntities = ?1 where u.id = ?2")
