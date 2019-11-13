@@ -39,10 +39,9 @@ public class FilesController {
         String username = authentication.getName();
         UserEntity user = userDao.findUserEntityByUsername(username);
         int userId = user.getId();
-        List<FilesDtoResponse> files = filePaginationDao.findFileEntitiesByUserEntity_Id(userId , PageRequest.of(page, 5, Sort.by("created").descending())).stream();
-        List<FilesDtoResponse> outputFiles = files.stream()
-                .map(file -> new FilesDtoResponse(file.getId(), file.getTitle(), file.getPath(), file.getCreated(), file.isFavorites()))
+        List<FilesDtoResponse> files = filePaginationDao.findFileEntitiesByUserEntity_Id(userId , PageRequest.of(page, 5, Sort.by("created").descending()))
+                .stream().map(file -> new FilesDtoResponse(file.getId(), file.getTitle(), file.getPath(), file.getCreated(), file.isFavorites()))
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(outputFiles);
+        return ResponseEntity.ok().body(files);
     }
 }
