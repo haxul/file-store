@@ -14,8 +14,7 @@ public interface UserDao extends CrudRepository<UserEntity, Integer> {
 
     UserEntity findUserEntityByUsername(String username);
 
-    @Modifying
-    @Query("update UserEntity u set u.fileEntities = ?1 where u.id = ?2")
-    int updateFilesForUser(List<FileEntity> files, int id);
+    @Query("select u.fileEntities from UserEntity u where u.id =?1 ")
+    List<FileEntity> findFilesByUserId(int id);
 
 }

@@ -24,18 +24,27 @@ public class FilterEmptyMultipleFiles implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         String contentTypeHeader = httpRequest.getHeader("content-type");
-        if (contentTypeHeader == null || contentTypeHeader.equals("")) filterChain.doFilter(servletRequest, servletResponse);
+        if (contentTypeHeader == null) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
 
         Pattern formPattern = Pattern.compile("multipart/form-data");
         Matcher formMatcher = formPattern.matcher(contentTypeHeader);
         Boolean isMultipartForm = formMatcher.find();
 
-        if (!isMultipartForm) filterChain.doFilter(servletRequest, servletResponse);
+        if (!isMultipartForm) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         Pattern boundaryPattern = Pattern.compile("boundary");
         Matcher boundaryMatcher = boundaryPattern.matcher(contentTypeHeader);
         boolean hasBoundary = boundaryMatcher.find();
 
-        if (hasBoundary) filterChain.doFilter(servletRequest, servletResponse);
+        if (hasBoundary) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setStatus(400);
     }

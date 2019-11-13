@@ -14,9 +14,4 @@ import java.util.List;
 public interface FileDao extends CrudRepository<FileEntity, Integer> {
     FileEntity findFileEntityById(int id);
 
-    List<FileEntity> findFileEntitiesByUserEntity_IdOrderByCreatedDesc(int id, Pageable pageable);
-
-//    @Query("SELECT f FROM FileEntity f where f.userEntity=:id ORDER BY f.created")
-//    List<FileEntity> getAllFiles(int id, int limit, int offset);
-
 }

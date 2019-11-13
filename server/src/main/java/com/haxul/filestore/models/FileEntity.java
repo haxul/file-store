@@ -49,6 +49,14 @@ public class FileEntity {
         this.userEntity = userEntity;
     }
 
+    public FileEntity( int id,String title, String path, Date created, boolean isFavorites) {
+        this.id = id;
+        this.title = title;
+        this.path = path;
+        this.created = created;
+        this.isFavorites = isFavorites;
+    }
+
     public int getId() {
         return id;
     }
