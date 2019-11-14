@@ -13,5 +13,5 @@ public interface FileDao extends CrudRepository<FileEntity, Integer> {
 
     FileEntity findFileEntityById(int id);
 
-    List<FileEntity> findAllByUserEntity_IdAndTitleLike(int userId, String title);
+    List<FileEntity> findFileEntitiesByTitleStartingWithAndUserEntity_Id(String title, int userId);
 }

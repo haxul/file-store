@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -54,11 +56,13 @@ public class FilesController {
 
     @GetMapping("/search")
     @Transactional
-    public ResponseEntity<?> findFilesByPattern(Authentication authentication, @RequestParam String fileTitle) {
+    public ResponseEntity<?> findFilesByPattern(Authentication authentication, @RequestParam String title) {
+        Pattern pattern = Pattern.compile("[<>/\\.\\-\"']");
+        Matcher matcher = pattern.matcher(title);
+        if (matcher.find()) return ResponseEntity.badRequest().body("Incorrect input data");
         UserEntity currentUser = userService.getAuthorizatedUser(authentication);
         int userId = currentUser.getId();
-        String searchedTitle = "%" + fileTitle;
-        List<FilesDtoResponse> files = fileDao.findAllByUserEntity_IdAndTitleLike(userId, searchedTitle).stream()
+        List<FilesDtoResponse> files = fileDao.findFileEntitiesByTitleStartingWithAndUserEntity_Id(title, userId).stream()
                 .map(file -> new FilesDtoResponse(file.getId(), file.getTitle(), file.getPath(), file.getCreated(), file.isFavorites()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(files);
