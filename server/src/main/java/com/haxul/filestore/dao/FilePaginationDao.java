@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface FilePaginationDao extends PagingAndSortingRepository<FileEntity, Integer> {
     List<FileEntity> findFileEntitiesByUserEntity_Id(int id, Pageable pageable);
+    List<FileEntity> findFileEntitiesByUserEntity_Id(int id);
 }

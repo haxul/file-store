@@ -7,6 +7,7 @@ import com.haxul.filestore.dto.FilesDtoResponse;
 import com.haxul.filestore.dto.UserDto;
 import com.haxul.filestore.models.FileEntity;
 import com.haxul.filestore.models.UserEntity;
+import com.haxul.filestore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -32,15 +33,33 @@ public class FilesController {
     @Autowired
     private FilePaginationDao filePaginationDao;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private FileDao fileDao;
+
     @GetMapping("/user")
     @Transactional
     public ResponseEntity<?> getAllUserFiles(Authentication authentication, @RequestParam Integer page) {
-        if (page < 0) return new ResponseEntity("param page must be more or equal than 0",HttpStatus.BAD_REQUEST);
+        if (page < 0) return new ResponseEntity("param page must be more or equal than 0", HttpStatus.BAD_REQUEST);
         String username = authentication.getName();
         UserEntity user = userDao.findUserEntityByUsername(username);
         int userId = user.getId();
-        List<FilesDtoResponse> files = filePaginationDao.findFileEntitiesByUserEntity_Id(userId , PageRequest.of(page, 5, Sort.by("created").descending()))
+        List<FilesDtoResponse> files = filePaginationDao.findFileEntitiesByUserEntity_Id(userId, PageRequest.of(page, 5, Sort.by("created").descending()))
                 .stream().map(file -> new FilesDtoResponse(file.getId(), file.getTitle(), file.getPath(), file.getCreated(), file.isFavorites()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(files);
+    }
+
+    @GetMapping("/search")
+    @Transactional
+    public ResponseEntity<?> findFilesByPattern(Authentication authentication, @RequestParam String fileTitle) {
+        UserEntity currentUser = userService.getAuthorizatedUser(authentication);
+        int userId = currentUser.getId();
+        String searchedTitle = "%" + fileTitle;
+        List<FilesDtoResponse> files = fileDao.findAllByUserEntity_IdAndTitleLike(userId, searchedTitle).stream()
+                .map(file -> new FilesDtoResponse(file.getId(), file.getTitle(), file.getPath(), file.getCreated(), file.isFavorites()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(files);
     }
