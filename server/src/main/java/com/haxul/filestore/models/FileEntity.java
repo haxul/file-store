@@ -31,7 +31,7 @@ public class FileEntity {
     @Column(columnDefinition = "boolean default false")
     private boolean isFavorites;
 
-    @ManyToOne
+    @ManyToOne(cascade = )
     private UserEntity userEntity;
 
     public FileEntity() {}

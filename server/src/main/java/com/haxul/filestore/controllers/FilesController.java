@@ -67,4 +67,14 @@ public class FilesController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(files);
     }
+
+    @DeleteMapping("/{fileId}")
+    @Transactional
+    public ResponseEntity<?> removeFile(@PathVariable int fileId, Authentication authentication) {
+        UserEntity user = userDao.findUserEntityByUsername(authentication.getName());
+        FileEntity file = fileDao.findFileEntityByIdAndUserEntity_Id(fileId, user.getId());
+        if (file == null) return ResponseEntity.badRequest().body("File is not found");
+        fileDao.delete(file);
+        return ResponseEntity.ok().body("The file is removed");
+    }
 }
