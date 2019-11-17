@@ -4,6 +4,7 @@ import com.haxul.filestore.dao.FileDao;
 import com.haxul.filestore.dao.FilePaginationDao;
 import com.haxul.filestore.dao.UserDao;
 import com.haxul.filestore.dto.FilesDtoResponse;
+import com.haxul.filestore.dto.PutRequestDto;
 import com.haxul.filestore.dto.UserDto;
 import com.haxul.filestore.models.FileEntity;
 import com.haxul.filestore.models.UserEntity;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -74,7 +76,21 @@ public class FilesController {
         UserEntity user = userDao.findUserEntityByUsername(authentication.getName());
         FileEntity file = fileDao.findFileEntityByIdAndUserEntity_Id(fileId, user.getId());
         if (file == null) return ResponseEntity.badRequest().body("File is not found");
-        fileDao.delete(file);
+        List<FileEntity> userFiles = user.getFileEntities().stream().filter(userFile -> userFile.getId() != file.getId()).collect(Collectors.toList());
+        user.setFileEntities(userFiles);
+        fileDao.deleteById(file.getId());
         return ResponseEntity.ok().body("The file is removed");
+    }
+
+    @PutMapping("/{fileId}")
+    @Transactional
+    public ResponseEntity<?> updateFile(@PathVariable int fileId, Authentication authentication,@Valid @RequestBody PutRequestDto fields) {
+        UserEntity user = userDao.findUserEntityByUsername(authentication.getName());
+        FileEntity file = fileDao.findFileEntityByIdAndUserEntity_Id(fileId, user.getId());
+        if (file == null) return ResponseEntity.badRequest().body("File is not found");
+        System.out.println(fields.getPopular());
+        if (fields.getPopular() != null) file.setFavorites(Boolean.valueOf(fields.getPopular()));
+        if (fields.getTitle() != null) file.setTitle(fields.getTitle());
+        return ResponseEntity.ok().body("file: " + fileId + " has been successfully updated");
     }
 }
