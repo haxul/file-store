@@ -9,7 +9,7 @@ public class PutRequestDto {
     @Size(max = 250)
     private String title;
 
-    private String isPopular;
+    private Boolean isPopular;
 
     public String getTitle() {
         return title;
@@ -19,11 +19,11 @@ public class PutRequestDto {
         this.title = title;
     }
 
-    public String getPopular() {
+    public Boolean getIsPopular() {
         return isPopular;
     }
 
-    public void setPopular(String popular) {
+    public void setPopular(Boolean popular) {
         isPopular = popular;
     }
 }

@@ -88,8 +88,7 @@ public class FilesController {
         UserEntity user = userDao.findUserEntityByUsername(authentication.getName());
         FileEntity file = fileDao.findFileEntityByIdAndUserEntity_Id(fileId, user.getId());
         if (file == null) return ResponseEntity.badRequest().body("File is not found");
-        System.out.println(fields.getPopular());
-        if (fields.getPopular() != null) file.setFavorites(Boolean.valueOf(fields.getPopular()));
+        if (fields.getIsPopular() != null) file.setFavorites(fields.getIsPopular());
         if (fields.getTitle() != null) file.setTitle(fields.getTitle());
         return ResponseEntity.ok().body("file: " + fileId + " has been successfully updated");
     }
