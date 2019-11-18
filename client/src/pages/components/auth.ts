@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 export const Button = styled.button`
   text-align:center;
   width:142px;
+  background: #664956;
 `
 export const Block = styled.div`
   text-align:center;
