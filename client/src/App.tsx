@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const About = styled.div``;
 const Home = styled.div``;
-class App extends Component {
+
+class App extends PureComponent {
   render() {
     return (
       <Router>
