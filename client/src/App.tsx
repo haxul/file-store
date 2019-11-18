@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
+import Main from "./pages/main/Main";
 
-const Home = styled.div``;
+const NoMatch = styled.div``;
 
 class App extends PureComponent {
   render() {
@@ -13,14 +14,17 @@ class App extends PureComponent {
       <Router>
         <div>
           <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
             <Route path="/login">
               <Login />
             </Route>
             <Route path="/signup">
               <Registration />
             </Route>
-            <Route path="/">
-              <Home>Home</Home>
+            <Route path="*">
+              <NoMatch>404 Not Found</NoMatch>
             </Route>
           </Switch>
         </div>
