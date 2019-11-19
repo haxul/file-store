@@ -7,12 +7,14 @@ import Registration from "./pages/registration/Registration";
 import Main from "./pages/main/Main";
 
 const NoMatch = styled.div``;
-
+const Wrapper = styled.div`
+ 
+`
 class App extends PureComponent {
   render() {
     return (
       <Router>
-        <div>
+        <Wrapper>
           <Switch>
             <Route exact path="/">
               <Main />
@@ -27,7 +29,7 @@ class App extends PureComponent {
               <NoMatch>404 Not Found</NoMatch>
             </Route>
           </Switch>
-        </div>
+        </Wrapper>
       </Router>
     );
   }
