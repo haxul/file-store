@@ -10,7 +10,7 @@ const Span = styled.span`
   }
 `;
 const Nav = styled.ul`
-  background: #ccbf0c;
+  background: #ffc107;
 `;
 
 class Navbar extends PureComponent {
