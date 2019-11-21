@@ -9,7 +9,6 @@ class Main extends PureComponent {
   render() {
     return (
       <>
-        <Redirect to={"/login"} />
         <Navbar />
         <Content />
         <Pagination />
