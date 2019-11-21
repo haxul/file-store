@@ -8,7 +8,7 @@ import { LoginStateProps, LoginDispatchProps } from "./login.interface"
 import { Redirect } from "react-router-dom"
 
 const Error: any = styled.div`
-  display: ${(props: any): any => props.show};
+  display: ${(props: any): string => props.show};
   color: red;
   text-align: center;
   width: 100%;
