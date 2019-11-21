@@ -7,13 +7,11 @@ import Registration from "./pages/registration/Registration";
 import Main from "./pages/main/Main";
 
 const NoMatch = styled.div``;
-const Wrapper = styled.div`
- 
-`
+const Wrapper = styled.div``
 class App extends PureComponent { 
+
   render() {
-    return (
-      
+    return (    
       <Router>
         <Wrapper>
           <Switch>
