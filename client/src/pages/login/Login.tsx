@@ -24,14 +24,13 @@ class Login extends PureComponent<any> {
 
   getJwtToken = async (): Promise<void> => {
     const { username, password } = this.props.login
-    this.setState({ error: false })
     const token = await getToken(username, password)
     if (!token) {
       this.setState({ error: true })
       return
     }
     localStorage.setItem("token", token)
-   this.setState({redirect: true})
+    this.setState({redirect: true})
   }
 
   render() {
@@ -50,14 +49,8 @@ class Login extends PureComponent<any> {
               placeholder="password"
               onChange={e => setPasswordUsername(e.target.value)}
             />
-            <Button type="button" className="btn btn-warning" onClick={this.getJwtToken}>
-              {" "}
-              log in{" "}
-            </Button>
-            <P>
-              {" "}
-              not registered? <a href="/signup">sign up</a>
-            </P>
+            <Button type="button" className="btn btn-warning" onClick={this.getJwtToken}> log in </Button>
+            <P> not registered? <a href="/signup">sign up</a> </P>
             <Error show={error ? "block" : "none"}>Error!!!</Error>
           </Block>
         </div>
