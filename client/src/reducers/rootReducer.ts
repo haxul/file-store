@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import test from './testreducer';
 import login from './login';
+import register from './register';
 export default combineReducers({
-  test,
-  login
+  login,
+  register
 });
