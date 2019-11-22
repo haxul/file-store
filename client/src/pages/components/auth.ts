@@ -13,3 +13,13 @@ export const Block = styled.div`
   text-align:center;
 `;
 
+export const P = styled.div`
+  padding-top: 4px;
+`
+
+export const Error: any = styled.div`
+  display: ${(props: any): string => props.show};
+  color: red;
+  text-align: center;
+  width: 100%;
+`
