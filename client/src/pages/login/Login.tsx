@@ -6,16 +6,8 @@ import { setLoginUsername, setPasswordUsername } from "../../actions/login"
 import styled from "styled-components"
 import { LoginStateProps, LoginDispatchProps } from "./login.interface"
 import { Redirect } from "react-router-dom"
+import { P, Error } from "../components/auth";
 
-const Error: any = styled.div`
-  display: ${(props: any): string => props.show};
-  color: red;
-  text-align: center;
-  width: 100%;
-`
-const P = styled.div`
-  padding-top: 4px;
-`
 class Login extends PureComponent<any> {
   state = {
     error: false,
