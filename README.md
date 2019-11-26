@@ -15,5 +15,3 @@
 
 - React.js
 - Redux
-- Bootstrap
-- SCSS
