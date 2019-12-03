@@ -15,3 +15,4 @@
 
 - React.js
 - Redux
+- Typescript
